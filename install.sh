@@ -5,7 +5,7 @@ apt update
 apt install -y python3 python3-pip nmap sqlite3 git
 
 # Clone the repository
-git clone https://github.com/your_username/your_repository.git
+git clone https://github.com/5H13LD-7R4C3/python-scanner.git
 
 # Install Python packages
 cd your_repository
