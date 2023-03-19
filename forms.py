@@ -14,3 +14,6 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
+class ScanForm(FlaskForm):
+    ip_addresses = StringField('IP Addresses', validators=[DataRequired()])
+    submit = SubmitField('Scan')
