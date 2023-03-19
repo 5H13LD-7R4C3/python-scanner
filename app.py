@@ -11,7 +11,8 @@ from models import User, Scan
 from config import Config
 
 # Initialize Flask app
-app = Flask(__name__, template_folder=os.path.join(os.getcwd(), 'templates'), static_folder=os.path.join(os.getcwd(), 'static'))
+app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'), static_folder=os.path.join(os.path.dirname(__file__), 'static'))
+
 app.config.from_object(Config)
 
 # Initialize Login Manager
