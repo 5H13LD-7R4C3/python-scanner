@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}Saved Scans{% endblock %}
+
+{% block content %}
+  <h1>Saved Scans</h1>
+  {% if saved_scans %}
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>IP Address</th>
+          <th>Port Number</th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for saved_scan in saved_scans %}
+          <tr>
+            <td>{{ saved_scan.date }}</td>
+            <td>{{ saved_scan.ip_address }}</td>
+            <td>{{ saved_scan.port_number }}</td>
+            <td><a href="{{ url_for('view_saved_scan', id=saved_scan.id) }}">View</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
