@@ -5,8 +5,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import nmap
 import sqlite3
 import os
-
-from forms import LoginForm, RegistrationForm, ScanForm
+from forms import RegistrationForm, ScanForm
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import DataRequired, Email, EqualTo, Length
 from models import User, Scan
 from config import Config
 
