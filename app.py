@@ -6,10 +6,7 @@ from flask_login import LoginManager, login_user, logout_user, current_user, log
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import Config
-from formss import RegistrationForms
-
-from models import User,Scan
-from formss import ScanForm
+from models import User,Scan, RegistrationForms,ScanForm
 # Initialize Flask app
 app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'), static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 
