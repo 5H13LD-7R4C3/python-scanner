@@ -10,11 +10,6 @@ git clone https://github.com/5H13LD-7R4C3/python-scanner.git
 # Install Python packages
 cd /python-scanner
 pip3 install -r requirements.txt
-
-# Create and populate the database
-python3 createdb.py
-python3 populate_db.py
-
 # Run the app in the background
 nohup python3 app.py > app.log 2>&1 &
 

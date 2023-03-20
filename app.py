@@ -21,7 +21,8 @@ app.config.from_object(Config)
 # Initialize Login Manager
 login = LoginManager(app)
 login.login_view = 'login'
-
+conn = sqlite3.connect('database.db') 
+c = conn.cursor()
 class Database:
     def __init__(self, db_name):
         self.db_name = db_name
