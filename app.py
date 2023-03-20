@@ -5,10 +5,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import nmap
 import sqlite3
 import os
-from formss import RegistrationForms, ScanForm
 from models import User, Scan
 from config import Config
-
+from formss import RegistrationForms, ScanForm
 # Initialize Flask app
 app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'), static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 
