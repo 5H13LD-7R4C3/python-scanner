@@ -8,7 +8,7 @@ apt install -y python3 python3-pip nmap sqlite3 git
 git clone https://github.com/5H13LD-7R4C3/python-scanner.git
 
 # Install Python packages
-cd your_repository
+cd /python-scanner
 pip3 install -r requirements.txt
 
 # Create and populate the database
