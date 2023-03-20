@@ -23,8 +23,9 @@ login = LoginManager(app)
 login.login_view = 'login'
 conn = sqlite3.connect('database.db') 
 c = conn.cursor()
-db_name = 'database.db'
+
 class Database:
+    db_name = 'database.db'
     def __init__(self, db_name):
         self.db_name = db_name
 
