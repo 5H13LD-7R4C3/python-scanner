@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import nmap
 import sqlite3
 import os
-from ..form import RegistrationForm, ScanForm
+from formss import RegistrationForm, ScanForm
 from models import User, Scan
 from config import Config
 
