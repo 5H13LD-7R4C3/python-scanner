@@ -1,7 +1,3 @@
-from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
-from app.database import db
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -27,11 +23,9 @@ class Scan(db.Model):
 
     def __repr__(self):
         return '<Scan {}>'.format(self.url)
-        
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
-from app.models import User
+
+
+
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
