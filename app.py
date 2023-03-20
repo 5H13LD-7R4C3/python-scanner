@@ -5,10 +5,10 @@ from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash, check_password_hash
-
-from formss import RegistrationForms, ScanForm
-from models import User, Scan
 from config import Config
+from models import User, Scan
+from formss import RegistrationForms, ScanForm
+
 # Initialize Flask app
 app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'), static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 
