@@ -2,27 +2,33 @@ import nmap
 import sqlite3
 import os
 from flask import Flask, render_template, redirect, url_for, flash, request
-from flask_login import LoginManager, login_user, logout_user, current_user, login_required, UserMixin
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import Config
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
+from flask_login import UserMixin
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
+
 # Initialize Flask app
-#app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'), static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
+
 # Initialize Login Manager
 login = LoginManager(app)
 login.login_view = 'login'
-conn = sqlite3.connect('database.db') 
+
+# Connect to SQLite database
+conn = sqlite3.connect('database.db')
 c = conn.cursor()
 
+# Define the database class
 class Database:
     db_name = 'database.db'
     def __init__(self, db_name):
@@ -93,11 +99,12 @@ class Database:
 
         return scans
 
+# Load user by ID
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
-
+# Home page
 @app.route('/')
 def index():
     return render_template('index.html', title='Home')
@@ -111,17 +118,16 @@ def register():
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data,
                     password_hash=generate_password_hash(form.password.data))
-        user.save()
+        db.session.add(user)
+        db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
-
 
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
-
 
 @app.route('/scan', methods=['GET', 'POST'])
 @login_required
@@ -132,17 +138,21 @@ def scan():
         nm = nmap.PortScanner()
         scan_output = nm.scan(hosts=form.ip_address.data, arguments='-Pn -sS -p- -T4 --script vuln')
         # Save scan results to database
-        scan = Scan(ip_address=form.ip_address.data, scan_output=str(scan_output))
-        scan.save()
+        scan = Scan(ip_address=form.ip_address.data, scan_output=str(scan_output), user_id=current_user.id)
+        db.session.add(scan)
+        db.session.commit()
         flash('Scan successfully completed')
         return redirect(url_for('scan_list'))
     return render_template('scan.html', title='Scan', form=form)
 
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 @app.route('/scan_list')
 @login_required
 def scan_list():
-    scans = Scan.query.all()
+    scans = Scan.query.filter_by(user_id=current_user.id).all()
     return render_template('scan_list.html', title='Scan List', scans=scans)
 
 class User(UserMixin, db.Model):
