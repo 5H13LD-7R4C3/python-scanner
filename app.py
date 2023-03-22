@@ -8,9 +8,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from config import Config
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-
-
+import bcrypt
 from flask_login import UserMixin
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
@@ -18,7 +18,7 @@ from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 #app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'), static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 app = Flask(__name__)
 app.config.from_object(Config)
-
+db = SQLAlchemy(app)
 # Initialize Login Manager
 login = LoginManager(app)
 login.login_view = 'login'
