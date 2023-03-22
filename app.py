@@ -7,6 +7,7 @@ from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import Config
 from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
 
 
 from flask_login import UserMixin
