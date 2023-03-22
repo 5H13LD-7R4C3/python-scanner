@@ -170,6 +170,7 @@ class Scan(db.Model):
 
     def __repr__(self):
         return '<Scan {}>'.format(self.url)
+
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
