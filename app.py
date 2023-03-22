@@ -2,15 +2,13 @@ import nmap
 import sqlite3
 import os
 from flask import Flask, render_template, redirect, url_for, flash, request
-from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required, UserMixin
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import Config
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
-from flask_login import UserMixin
-
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
