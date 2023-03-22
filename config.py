@@ -1,5 +1,5 @@
 import os
-
+app = Flask(__name__)
 class Config:
     DEBUG = False
     TESTING = False
